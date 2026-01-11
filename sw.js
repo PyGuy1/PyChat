@@ -1,10 +1,11 @@
 const CACHE_NAME = "pychat-v2";
+
 const PRECACHE_ASSETS = [
   "./",
   "./chat.html",
-  "./manifest.json"
-  "./icons/icon-192.png"
-  "./icons/icon-512.png",
+  "./manifest.json",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
 ];
 
 // --------------------
@@ -36,19 +37,16 @@ self.addEventListener("activate", event => {
 });
 
 // --------------------
-// FETCH (runtime cache)
+// FETCH
 // --------------------
 self.addEventListener("fetch", event => {
-  // Only handle GET requests
   if (event.request.method !== "GET") return;
 
   event.respondWith(
     fetch(event.request)
       .then(networkResponse => {
-        // Clone response so we can cache it
         const responseClone = networkResponse.clone();
 
-        // Only cache successful responses
         if (networkResponse.status === 200) {
           caches.open(CACHE_NAME).then(cache => {
             cache.put(event.request, responseClone);
@@ -57,9 +55,6 @@ self.addEventListener("fetch", event => {
 
         return networkResponse;
       })
-      .catch(() => {
-        // Network failed → try cache
-        return caches.match(event.request);
-      })
+      .catch(() => caches.match(event.request))
   );
 });
