@@ -7,7 +7,7 @@
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons CDN -->
-  <script type="module" src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.esm.js"></script>
+  <script defer type="module" src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/lucide.esm.js"></script>
 
   <style>
     /* Gradient background animation */
@@ -48,7 +48,10 @@
       0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
-    .fade-in-up { animation: fadeInUp 1s ease forwards; }
+    .fade-in-up { 
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0; /* start invisible */
+    }
     .delay-1 { animation-delay: 0.3s; }
     .delay-2 { animation-delay: 0.6s; }
     .delay-3 { animation-delay: 0.9s; }
